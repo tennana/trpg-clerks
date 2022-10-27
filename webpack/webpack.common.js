@@ -2,14 +2,14 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const path = require('path');
 const CopyPlugin = require('copy-webpack-plugin');
 
-const browser = process.env.BROWSER;
+const browser = process.env.BROWSER !== "firefox" ? "chrome" : process.env.BROWSER;
 const BUILD_DIR_NAME = 'dist';
 const SRC_DIR_NAME = 'src';
 
 module.exports = {
   entry: {
     popup: path.join(__dirname, `../${SRC_DIR_NAME}/popup.ts`),
-    background: path.join(__dirname, `../${SRC_DIR_NAME}/background/${browser}/background.ts`),
+    backgroundCcfolia: path.join(__dirname, `../${SRC_DIR_NAME}/background/${browser}/background-ccfolia.ts`),
   },
   output: {
     path: path.join(__dirname, `../${BUILD_DIR_NAME}`),
@@ -40,7 +40,8 @@ module.exports = {
   },
   resolve: {
     alias: {
-      svelte: path.dirname(require.resolve('svelte/package.json'))
+      svelte: path.dirname(require.resolve('svelte/package.json')),
+      '@': path.resolve(__dirname,`../${SRC_DIR_NAME}/background/${browser}/`)
     },
     extensions: ['.mjs', '.js', '.ts', '.svelte'],
     mainFields: ['svelte', 'browser', 'module', 'main']

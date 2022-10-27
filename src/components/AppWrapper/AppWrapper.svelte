@@ -1,12 +1,4 @@
-<script lang="ts">
-  import type { DayPeriod } from '../../type/index.type';
-
-  export let period: DayPeriod = 'morning';
-
-  const imageUrl = `url(images/${period}.png)`;
-</script>
-
-<div role="main" style={`background-image: ${imageUrl}`} class="root">
+<div role="main" class="root">
   <slot />
 </div>
 

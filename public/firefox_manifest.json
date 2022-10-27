@@ -4,12 +4,13 @@
   "description": "The clock which shows time and date quickly. It has background images correspond to the periods of a day.",
   "permissions": [],
   "manifest_version": 2,
-  "background": {
-    "scripts": [
-      "background.js"
-    ],
-    "persistent": true
-  },
+  "content_scripts": [
+    {
+      "matches": ["https://ccfolia.com/rooms/*"],
+      "js": ["backgroundCcfolia.js"],
+      "run_at": "document_end"
+    }
+  ],
   "browser_action": {
     "default_popup": "popup.html",
     "default_icon": {
