@@ -12,8 +12,12 @@
     "rootDir": "src",
     "isolatedModules": false,
     "typeRoots": [
-      "node_modules/@types",
+      "node_modules/@types"
     ],
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["src/background/chrome/*"]
+    },
     "types": [
       "jest",
       "node",

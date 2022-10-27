@@ -40,12 +40,13 @@ module.exports = {
     '@typescript-eslint/no-inferrable-types': 'off',
     '@typescript-eslint/no-unused-vars': 'error',
   },
-  ignorePatterns: ['*.config.js', 'jest.setup.js'],
+  ignorePatterns: ['*.config.js', 'jest.setup.js', 'webpack.*.js'],
   settings: {
     'import/resolver': {
       node: {
-        extensions: ['.js', '.jsx', '.ts', '.tsx'],
+        extensions: ['.js', '.jsx', '.ts', '.tsx', '.svelte'],
       },
+      typescript: {},
     },
     'svelte3/typescript': true,
   },
