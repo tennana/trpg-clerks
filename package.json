@@ -98,5 +98,8 @@
       "npm run css:lint-fix",
       "npm run code:prettier"
     ]
+  },
+  "dependencies": {
+    "simplezip.js": "^1.1.0"
   }
 }
