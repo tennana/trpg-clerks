@@ -1,5 +1,5 @@
 import SimpleZip from 'simplezip.js';
-import type {OUTPUT_TYPE, ResponseMessage} from '../type/index.type';
+import type {ResponseMessage} from '../type/index.type';
 
 interface OUTPUT_FILE {
     filename: string;
@@ -64,21 +64,21 @@ async function getIconImgs(res: ResponseMessage): Promise<OUTPUT_FILE[]> {
 
 type ZipFile = { name: string, data: ArrayBuffer | Uint8Array | string };
 
-async function exportJson(type: OUTPUT_TYPE, res: ResponseMessage): Promise<OUTPUT_FILE> {
-    if ((type & 1) == 0) {
-        return {
-            filename: 'output.json',
-            blob: new Blob([JSON.stringify(res.messages)], {type: 'application/json'})
-        };
-    }
+function exportJson(res: ResponseMessage): ZipFile {
+    return {
+        name: 'messages.json',
+        data: new TextEncoder().encode(JSON.stringify(res.messages))
+    };
+}
+
+async function exportMain(res: ResponseMessage): Promise<OUTPUT_FILE> {
     const iconFileList = await getIconImgs(res);
     res.messages.forEach(message => {
         message.iconUrl = iconFileList.find(iconFileInfo => iconFileInfo.originalUrl === message.iconUrl)?.filename || message.iconUrl;
     });
-    const zipFiles: ZipFile[] = [{
-        name: 'main.json',
-        data: new TextEncoder().encode(JSON.stringify(res.messages))
-    }];
+    const zipFiles: ZipFile[] = [
+        exportJson(res)
+    ];
     for (const iconFileInfo of iconFileList) {
         zipFiles.push({
             name: iconFileInfo.filename,
@@ -93,8 +93,8 @@ async function exportJson(type: OUTPUT_TYPE, res: ResponseMessage): Promise<OUTP
 }
 
 
-export default async function (type: OUTPUT_TYPE, res: ResponseMessage) {
-    const file = await exportJson(type, res);
+export default async function (res: ResponseMessage) {
+    const file = await exportMain(res);
     const aTag = document.createElement('a');
     aTag.href = URL.createObjectURL(file.blob);
     aTag.target = '_blank';
