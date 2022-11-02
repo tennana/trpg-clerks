@@ -100,6 +100,7 @@
     ]
   },
   "dependencies": {
+    "export-from-json": "^1.7.0",
     "simplezip.js": "^1.1.0"
   }
 }

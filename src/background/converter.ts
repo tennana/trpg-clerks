@@ -1,4 +1,6 @@
+import exportFromJSON from 'export-from-json';
 import SimpleZip from 'simplezip.js';
+import ObjectsToCsv from 'objects-to-csv';
 import type {ResponseMessage} from '../type/index.type';
 
 interface OUTPUT_FILE {
@@ -71,13 +73,27 @@ function exportJson(res: ResponseMessage): ZipFile {
     };
 }
 
+async function exportCsv(res: ResponseMessage): Promise<ZipFile> {
+    return new Promise(resolve => {
+        exportFromJSON({
+            data: res.messages, exportType: exportFromJSON.types.csv, processor: function (content) {
+                resolve({
+                    name: 'messages.csv',
+                    data: new TextEncoder().encode(content)
+                });
+            }
+        });
+    });
+}
+
 async function exportMain(res: ResponseMessage): Promise<OUTPUT_FILE> {
     const iconFileList = await getIconImgs(res);
     res.messages.forEach(message => {
         message.iconUrl = iconFileList.find(iconFileInfo => iconFileInfo.originalUrl === message.iconUrl)?.filename || message.iconUrl;
     });
     const zipFiles: ZipFile[] = [
-        exportJson(res)
+        exportJson(res),
+        await exportCsv(res)
     ];
     for (const iconFileInfo of iconFileList) {
         zipFiles.push({
