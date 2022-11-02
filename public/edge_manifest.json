@@ -3,8 +3,9 @@
   "version": "0.0.1",
   "description": "ココフォリアの表示中タブから発言とアイコンを取得するっぽいです",
   "permissions": [
+    "activeTab"
   ],
-  "manifest_version": 2,
+  "manifest_version": 3,
   "content_scripts": [
     {
       "matches": ["https://ccfolia.com/rooms/*"],
@@ -12,7 +13,7 @@
       "run_at": "document_end"
     }
   ],
-  "browser_action": {
+  "action": {
     "default_popup": "popup.html",
     "default_icon": {
       "16": "images/logo/app-16.png",

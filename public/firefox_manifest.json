@@ -26,5 +26,10 @@
     "32": "images/logo/app-32.png",
     "48": "images/logo/app-48.png",
     "128": "images/logo/app-128.png"
+  },
+  "applications": {
+    "gecko": {
+      "id": "cocopoi@tennana.net"
+    }
   }
 }
