@@ -2,9 +2,7 @@
   "name": "ここぽい(仮)",
   "version": "0.0.1",
   "description": "ココフォリアの表示中タブから発言とアイコンを取得するっぽいです",
-  "permissions": [
-    "tabs", "https://ccfolia.com/rooms/*"
-  ],
+  "permissions": [],
   "manifest_version": 3,
   "content_scripts": [
     {
