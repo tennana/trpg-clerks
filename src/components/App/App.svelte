@@ -7,13 +7,20 @@
 
 <AppWrapper>
   <div class="root__wrapper">
-    <button on:click={fetchLog}>取得するよ</button>
+    <ol>
+      <li>ココフォリアのルームを開き、取得したいタブを選びます</li>
+      <li>取得開始したい発言まで、スクロールバーで発言を遡ってたら取得ボタンを押下します。</li>
+    </ol>
+    <button on:click={fetchLog}>取得</button>
   </div>
 </AppWrapper>
 
 <style>
   .root__wrapper {
     width: 100%;
-    text-align: center;
+  }
+  button {
+    width: 5em;
+    margin: 0 50%;
   }
 </style>

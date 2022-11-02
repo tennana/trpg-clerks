@@ -137,6 +137,10 @@ async function exportMain(res: ResponseMessage): Promise<OUTPUT_FILE> {
 
 
 export default async function (res: ResponseMessage) {
+    if(!res) {
+        alert('取得に失敗しました。タブをリロードしてやり直すか、諦めて下さい。');
+        return;
+    }
     const file = await exportMain(res);
     const aTag = document.createElement('a');
     aTag.href = URL.createObjectURL(file.blob);

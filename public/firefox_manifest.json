@@ -1,7 +1,7 @@
 {
-  "name": "The Clock",
-  "version": "1.0",
-  "description": "The clock which shows time and date quickly. It has background images correspond to the periods of a day.",
+  "name": "ここぽい(仮)",
+  "version": "0.0.1",
+  "description": "ココフォリアの表示中タブから発言とアイコンを取得するっぽいです",
   "permissions": [],
   "manifest_version": 2,
   "content_scripts": [
@@ -19,7 +19,7 @@
       "48": "images/logo/app-48.png",
       "128": "images/logo/app-128.png"
     },
-    "default_title": "Getting Started Example"
+    "default_title": "Getting Started"
   },
   "icons": {
     "16": "images/logo/app-16.png",
