@@ -1,6 +1,6 @@
 import exportFromJSON from 'export-from-json';
 import SimpleZip from 'simplezip.js';
-import ObjectsToCsv from 'objects-to-csv';
+import Standard from '../components/template/Standard.svelte';
 import type {ResponseMessage} from '../type/index.type';
 
 interface OUTPUT_FILE {
@@ -86,6 +86,32 @@ async function exportCsv(res: ResponseMessage): Promise<ZipFile> {
     });
 }
 
+async function exportHtml(res: ResponseMessage): Promise<ZipFile> {
+    const divRoot = document.createElement('div');
+    const component = new Standard({
+        target: divRoot,
+        props: {
+            messages: res.messages
+        }
+    });
+    return new Promise(resolve => {
+        const convert = function () {
+            resolve({
+                name: 'messages.html',
+                data: new TextEncoder().encode(`<style>
+    .icon {
+        width: 40px;
+    }
+</style>` + component.$$.root.innerHTML)
+            });
+
+            component.$destroy();
+        };
+        component.$on('onMount', convert);
+        requestIdleCallback(convert, {timeout: 1000});
+    });
+}
+
 async function exportMain(res: ResponseMessage): Promise<OUTPUT_FILE> {
     const iconFileList = await getIconImgs(res);
     res.messages.forEach(message => {
@@ -93,7 +119,8 @@ async function exportMain(res: ResponseMessage): Promise<OUTPUT_FILE> {
     });
     const zipFiles: ZipFile[] = [
         exportJson(res),
-        await exportCsv(res)
+        await exportCsv(res),
+        await exportHtml(res)
     ];
     for (const iconFileInfo of iconFileList) {
         zipFiles.push({
