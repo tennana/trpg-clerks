@@ -39,6 +39,7 @@ module.exports = {
     ],
   },
   resolve: {
+    conditionNames: ['svelte'],
     alias: {
       svelte: path.dirname(require.resolve('svelte/package.json')),
       '@': path.resolve(__dirname,`../${SRC_DIR_NAME}/background/${browser}/`)
