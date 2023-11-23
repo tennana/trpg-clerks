@@ -15,11 +15,11 @@ module.exports = {
     ecmaVersion: 12,
     sourceType: 'module',
   },
-  plugins: ['@typescript-eslint', 'svelte3', 'import'],
+  plugins: ['@typescript-eslint', 'svelte', 'import'],
   overrides: [
     {
       files: ['*.svelte'],
-      processor: 'svelte3/svelte3',
+      processor: 'svelte/svelte',
     },
   ],
   rules: {
