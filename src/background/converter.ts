@@ -17,7 +17,12 @@ async function getIconImgs(res: ResponseMessage): Promise<OUTPUT_FILE[]> {
     if (fileMap.has(message.iconUrl) || !message.iconUrl) {
       return;
     }
-    const fetchPromise = fetch(message.iconUrl, { cache: 'force-cache' }).then((res) => res.blob());
+    const fetchPromise = fetch(message.iconUrl, { cache: 'force-cache' }).then((res) => {
+      if(res.ok) {
+        return res.blob();
+      }
+      return null;
+    });
     fetchList.push(fetchPromise);
     fileMap.set(message.iconUrl, fetchPromise);
   });
@@ -27,15 +32,18 @@ async function getIconImgs(res: ResponseMessage): Promise<OUTPUT_FILE[]> {
     let index = 0;
     fileMap.forEach(async (file, originalUrl) => {
       index++;
-      fileList.push({
-        filename: 'images/' + `${index}`.padStart(5, '0') + '.webp',
-        blob: await file,
-        originalUrl,
-      });
+      return file.then(function (index: number, blob: Blob | null) {
+        if(blob)
+        fileList.push({
+          filename: 'images/' + `${index}`.padStart(5, '0') + '.webp',
+          blob: blob,
+          originalUrl,
+        });
+      }.bind(this, index));
     });
     return fileList;
   }).finally(() => {
-    logger.log('画像取得処理完了:' + fileList.length + '件');
+    logger.log('画像取得処理完了:' + fileList.length + '件 / 削除済み画像:' + (fetchList.length - fileList.length));
   });
 }
 
@@ -97,12 +105,17 @@ async function exportHtml(res: ResponseMessage): Promise<ZipFile> {
 }
 
 async function exportMain(res: ResponseMessage): Promise<OUTPUT_FILE> {
-  logger.log('発言の加工処理開始');
   try {
     const iconFileList = await getIconImgs(res);
+
+    let existsNotFound = false;
     res.messages.forEach((message) => {
+      const filename = iconFileList.find((iconFileInfo) => iconFileInfo.originalUrl === message.iconUrl)?.filename;
+      if(!filename) {
+        existsNotFound = true;
+      }
       message.iconUrl =
-        iconFileList.find((iconFileInfo) => iconFileInfo.originalUrl === message.iconUrl)?.filename || message.iconUrl;
+        filename || 'images/404.svg';
     });
     const zipFiles: ZipFile[] = [exportJson(res), await exportCsv(res), await exportHtml(res)];
     logger.log('ZIPファイル生成: 開始');
@@ -110,6 +123,12 @@ async function exportMain(res: ResponseMessage): Promise<OUTPUT_FILE> {
       zipFiles.push({
         name: iconFileInfo.filename,
         data: await iconFileInfo.blob.arrayBuffer(),
+      });
+    }
+    if (existsNotFound) {
+      zipFiles.push({
+        name: 'images/404.svg',
+        data: await fetch('images/404.svg').then((res) => res.arrayBuffer()),
       });
     }
     const data = SimpleZip.GenerateZipFrom(zipFiles);
