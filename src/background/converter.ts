@@ -9,35 +9,6 @@ interface OUTPUT_FILE {
     originalUrl?: string;
 }
 
-/*
-async function convertPng(iconfileInfo: OUTPUT_FILE): Promise<OUTPUT_FILE> {
-    const imgUrl = URL.createObjectURL(iconfileInfo.blob);
-    const img = new Image();
-    img.src = imgUrl;
-
-    await new Promise<void>(resolve => {
-       img.addEventListener('load', () => {
-           resolve();
-       }, {once: true});
-    });
-
-    const canvas = document.createElement('canvas');
-    canvas.width = 400;
-    canvas.height = 400;
-    const context = canvas.getContext('2d');
-    context.drawImage(img, 0, 0, 400, 400);
-
-    const blob = await new Promise<Blob>((resolve) => {
-        canvas.toBlob(resolve);
-    });
-
-    return {
-        ...iconfileInfo,
-        blob
-    };
-}
-*/
-
 async function getIconImgs(res: ResponseMessage): Promise<OUTPUT_FILE[]> {
     const fileMap: Map<string, Promise<Blob>> = new Map();
     const fetchList: Promise<Blob>[] = [];
