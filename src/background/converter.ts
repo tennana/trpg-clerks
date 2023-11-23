@@ -28,7 +28,7 @@ async function getIconImgs(res: ResponseMessage): Promise<OUTPUT_FILE[]> {
     fileMap.forEach(async (file, originalUrl) => {
       index++;
       fileList.push({
-        filename: `${index}`.padStart(5, '0') + '.webp',
+        filename: 'images/' + `${index}`.padStart(5, '0') + '.webp',
         blob: await file,
         originalUrl,
       });
