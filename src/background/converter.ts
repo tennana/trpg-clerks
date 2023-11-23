@@ -80,9 +80,10 @@ async function exportHtml(res: ResponseMessage): Promise<ZipFile> {
         name: 'messages.html',
         data: new TextEncoder().encode(
           `<style>
-    .icon {
+    .icon, .icon > img {
         width: 40px;
     }
+    h4 { margin: 0 }
 </style>` + component.$$.root.innerHTML
         ),
       });

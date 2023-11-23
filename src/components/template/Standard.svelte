@@ -9,9 +9,9 @@
 {#each messages as message}
   <div class="message">
     <div class="icon"><img src={message.iconUrl} alt="" /></div>
-    <div class="p">
-      <b>{message.name}</b><br />
-      <span>{message.body}</span>
+    <div>
+      <h4 class="name">{message.name}</h4>
+      <span class="body">{message.body}</span>
     </div>
   </div>
 {/each}
