@@ -5,9 +5,9 @@ function extractLog(multiListRoot: HTMLElement): Promise<ResponseMessage> {
     setTimeout(function () {
       requestIdleCallback(
         function () {
-          const messages = Array.from(multiListRoot.children[0].children[0].children[0].children).map((node) => {
+          const messages = Array.from(multiListRoot.getElementsByClassName('MuiListItem-root')).map((node) => {
             const nameLine = node.getElementsByClassName('MuiListItemText-primary')[0];
-            const messageBodyTag = nameLine.nextElementSibling as HTMLElement;
+            const messageBodyTag = node.getElementsByClassName('MuiTypography-secondary')[0];
             if (!nameLine.firstChild) {
               // System Message
               const body = messageBodyTag.innerText;
