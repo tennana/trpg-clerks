@@ -1,7 +1,15 @@
+import logger from '../../lib/logger';
 import converter from '../converter';
 
 export default function () {
+  chrome.runtime.onMessage.addListener(function (message: { type: string; message: string }) {
+    if (message.type === 'TRPG-CLERKS-LOG') {
+      logger.log(message.message);
+    }
+  });
+
   chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
+    logger.initial();
     chrome.tabs.sendMessage(tabs[0].id, { type: 'TRPG-CLERKS' }, converter.bind(null));
   });
 }
