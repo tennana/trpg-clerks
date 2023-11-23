@@ -16,12 +16,6 @@ module.exports = {
     sourceType: 'module',
   },
   plugins: ['@typescript-eslint', 'svelte', 'import'],
-  overrides: [
-    {
-      files: ['*.svelte'],
-      processor: 'svelte/svelte',
-    },
-  ],
   rules: {
     'linebreak-style': ['error', 'unix'],
     quotes: ['error', 'single'],
