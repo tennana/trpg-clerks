@@ -1,4 +1,4 @@
-import type {ResponseMessage, JsonMessage } from '../type/index.type';
+import type { ResponseMessage, JsonMessage } from '../type/index.type';
 
 function extractLog(multiListRoot: HTMLElement): Promise<ResponseMessage> {
   return new Promise((resolve) => {
@@ -30,7 +30,7 @@ function extractLog(multiListRoot: HTMLElement): Promise<ResponseMessage> {
           });
           resolve({
             type: 'ccfolia',
-            messages
+            messages,
           });
         },
         { timeout: 3000 }

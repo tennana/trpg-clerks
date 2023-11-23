@@ -2,7 +2,6 @@
   // eslint-disable-next-line import/no-unresolved
   import fetchLog from '@/caller';
   import AppWrapper from '../AppWrapper/AppWrapper.svelte';
-
 </script>
 
 <AppWrapper>
