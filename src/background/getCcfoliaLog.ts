@@ -6,8 +6,8 @@ function extractLog(multiListRoot: HTMLElement): Promise<ResponseMessage> {
       requestIdleCallback(
         function () {
           const messages = Array.from(multiListRoot.getElementsByClassName('MuiListItem-root')).map((node) => {
-            const nameLine = node.getElementsByClassName('MuiListItemText-primary')[0];
-            const messageBodyTag = node.getElementsByClassName('MuiTypography-secondary')[0];
+            const nameLine = node.getElementsByClassName('MuiListItemText-primary')[0] as HTMLElement;
+            const messageBodyTag = node.getElementsByClassName('MuiTypography-secondary')[0] as HTMLElement;
             if (!nameLine.firstChild) {
               // System Message
               const body = messageBodyTag.innerText;
@@ -41,8 +41,9 @@ function extractLog(multiListRoot: HTMLElement): Promise<ResponseMessage> {
 
 export default function getCcfoliaLog(): Promise<ResponseMessage> {
   const multiListRoot = <HTMLElement>document.getElementsByClassName('MuiList-root')[0];
-  multiListRoot.style.height = '100000px';
-  multiListRoot.parentElement.style.height = '100000px';
+  const fullHeight = (multiListRoot.firstChild as HTMLElement).style.height;
+  multiListRoot.style.height = fullHeight;
+  multiListRoot.parentElement.style.height = fullHeight;
   return extractLog(multiListRoot).finally(() => {
     multiListRoot.style.height = '';
     multiListRoot.parentElement.style.height = '';
