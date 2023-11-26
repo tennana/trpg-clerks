@@ -37,13 +37,27 @@ jobs:
         run: npm run app:firefox && cd dist/ && zip -r cocopoi . && mv cocopoi.zip ../cocopoi-firefox-${{ github.ref_name }}.xpi
       - name: Run build Edge
         run: npm run app:edge && cd dist/ && zip -r cocopoi . && mv cocopoi.zip ../cocopoi-edge-${{ github.ref_name }}.zip
+      - name: Run pack Chrome
+        uses: cardinalby/webext-buildtools-chrome-crx-action@v2
+        with:
+         zipFilePath: 'cocopoi-chrome-${{ github.ref_name }}.zip'
+         crxFilePath: 'cocopoi-chrome-${{ github.ref_name }}.crx'
+         privateKey: ${{ secrets.CRX_PRIVATE_KEY }}
+      - name: Run pack Edge
+        uses: cardinalby/webext-buildtools-chrome-crx-action@v2
+        with:
+          zipFilePath: 'cocopoi-edge-${{ github.ref_name }}.zip'
+          crxFilePath: 'cocopoi-edge-${{ github.ref_name }}.crx'
+          privateKey: ${{ secrets.CRX_PRIVATE_KEY }}
       - uses: actions/upload-artifact@v3
         with:
           name: extensions
           path: |
             cocopoi-chrome-${{ github.ref_name }}.zip
+            cocopoi-chrome-${{ github.ref_name }}.crx         
             cocopoi-firefox-${{ github.ref_name }}.xpi
             cocopoi-edge-${{ github.ref_name }}.zip
+            cocopoi-edge-${{ github.ref_name }}.crx
       - name: Release
         uses: softprops/action-gh-release@v1
         if: startsWith( github.ref, 'refs/tags/v' )
@@ -51,5 +65,7 @@ jobs:
           generate_release_notes: true
           file: |
             cocopoi-chrome-${{ github.ref_name }}.zip
+            cocopoi-chrome-${{ github.ref_name }}.crx         
             cocopoi-firefox-${{ github.ref_name }}.xpi
             cocopoi-edge-${{ github.ref_name }}.zip
+            cocopoi-edge-${{ github.ref_name }}.crx
