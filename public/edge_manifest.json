@@ -2,7 +2,7 @@
   "name": "ここぽい(仮)",
   "version": "0.0.2",
   "description": "ココフォリアの表示中タブから発言とアイコンを取得するっぽいです",
-  "permissions": [],
+  "permissions": ["declarativeContent"],
   "manifest_version": 3,
   "content_scripts": [
     {
@@ -11,6 +11,9 @@
       "run_at": "document_end"
     }
   ],
+  "background": {
+    "service_worker": "backgroundExtensions.js"
+  },
   "action": {
     "default_popup": "popup.html",
     "default_icon": {

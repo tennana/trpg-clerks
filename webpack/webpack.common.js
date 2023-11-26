@@ -10,6 +10,7 @@ module.exports = {
   entry: {
     popup: path.join(__dirname, `../${SRC_DIR_NAME}/popup.ts`),
     backgroundCcfolia: path.join(__dirname, `../${SRC_DIR_NAME}/background/${browser}/background-ccfolia.ts`),
+    backgroundExtensions: path.join(__dirname, `../${SRC_DIR_NAME}/background/${browser}/background-extensions.ts`),
   },
   output: {
     path: path.join(__dirname, `../${BUILD_DIR_NAME}`),
