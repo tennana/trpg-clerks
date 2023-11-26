@@ -28,23 +28,27 @@ async function getIconImgs(res: ResponseMessage): Promise<OUTPUT_FILE[]> {
   });
   logger.log('画像取得処理開始:' + fetchList.length + '件');
   const fileList: OUTPUT_FILE[] = [];
-  return Promise.all(fetchList).then(() => {
-    let index = 0;
-    fileMap.forEach(async (file, originalUrl) => {
-      index++;
-      return file.then(function (index: number, blob: Blob | null) {
-        if(blob)
-        fileList.push({
-          filename: 'images/' + `${index}`.padStart(5, '0') + '.webp',
-          blob: blob,
-          originalUrl,
-        });
-      }.bind(this, index));
+  return Promise.all(fetchList)
+    .then(() => {
+      let index = 0;
+      fileMap.forEach(async (file, originalUrl) => {
+        index++;
+        return file.then(
+          function (index: number, blob: Blob | null) {
+            if (blob)
+              fileList.push({
+                filename: 'images/' + `${index}`.padStart(5, '0') + '.webp',
+                blob: blob,
+                originalUrl,
+              });
+          }.bind(this, index)
+        );
+      });
+      return fileList;
+    })
+    .finally(() => {
+      logger.log('画像取得処理完了:' + fileList.length + '件 / 削除済み画像:' + (fetchList.length - fileList.length));
     });
-    return fileList;
-  }).finally(() => {
-    logger.log('画像取得処理完了:' + fileList.length + '件 / 削除済み画像:' + (fetchList.length - fileList.length));
-  });
 }
 
 type ZipFile = { name: string; data: ArrayBuffer | Uint8Array | string };
