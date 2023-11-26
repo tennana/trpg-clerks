@@ -18,7 +18,7 @@ async function getIconImgs(res: ResponseMessage): Promise<OUTPUT_FILE[]> {
       return;
     }
     const fetchPromise = fetch(message.iconUrl, { cache: 'force-cache' }).then((res) => {
-      if(res.ok) {
+      if (res.ok) {
         return res.blob();
       }
       return null;
@@ -118,11 +118,10 @@ async function exportMain(res: ResponseMessage): Promise<OUTPUT_FILE> {
     let existsNotFound = false;
     res.messages.forEach((message) => {
       const filename = iconFileList.find((iconFileInfo) => iconFileInfo.originalUrl === message.iconUrl)?.filename;
-      if(!filename) {
+      if (!filename) {
         existsNotFound = true;
       }
-      message.iconUrl =
-        filename || 'images/404.svg';
+      message.iconUrl = filename || 'images/404.svg';
     });
     const zipFiles: ZipFile[] = [exportJson(res), await exportCsv(res), await exportHtml(res)];
     logger.log('ZIPファイル生成: 開始');

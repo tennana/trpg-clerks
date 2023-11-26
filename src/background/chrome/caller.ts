@@ -11,8 +11,8 @@ export default function () {
   chrome.runtime.onMessage.removeListener(logListener);
   chrome.runtime.onMessage.addListener(logListener);
 
-  chrome.tabs.query({active: true, currentWindow: true}, (tabs) => {
+  chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
     logger.initial();
-    chrome.tabs.sendMessage(tabs[0].id, {type: 'TRPG-CLERKS'}, converter.bind(null));
+    chrome.tabs.sendMessage(tabs[0].id, { type: 'TRPG-CLERKS' }, converter.bind(null));
   });
 }

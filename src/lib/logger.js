@@ -4,7 +4,15 @@ const store = writable('');
 
 function getDateString() {
   const date = new Date();
-  return date.getHours() + ':' + date.getMinutes() + ':' + date.getSeconds() + ':' + ('000' + date.getMilliseconds()).substring(-3);
+  return (
+    date.getHours() +
+    ':' +
+    date.getMinutes() +
+    ':' +
+    date.getSeconds() +
+    ':' +
+    ('000' + date.getMilliseconds()).substring(-3)
+  );
 }
 
 export default {
