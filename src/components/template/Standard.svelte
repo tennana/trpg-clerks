@@ -12,7 +12,7 @@
       <div class="icon"><img src={message.iconUrl} alt="" /></div>
     {/if}
     <div>
-      <h4 class="name">{message.name}</h4>
+      <h4 class="name" style="{message.color ? `color: ${message.color}` : ''}">{message.name}</h4>
       <span class="body">{message.body}</span>
     </div>
   </div>

@@ -19,6 +19,7 @@ function extractLog(multiListRoot: HTMLElement, logger: (message: string) => voi
             }
             const name = nameLine.firstChild.textContent || '';
             const body = messageBodyTag.innerText;
+            const color = nameLine.style.color;
             const iconTag = node.getElementsByClassName('MuiListItemAvatar-root')[0].getElementsByTagName('img')[0];
             const iconUrl = iconTag && iconTag.src.replace('https://ccfolia.com/blank.gif', '');
 
@@ -26,6 +27,7 @@ function extractLog(multiListRoot: HTMLElement, logger: (message: string) => voi
               name,
               body,
               iconUrl,
+              color
             } as JsonMessage;
           });
           logger(`発言数合計: ${messages.length}件`);
