@@ -10,5 +10,5 @@ function getDateString() {
 export default {
   subscribe: store.subscribe,
   log: (message) => store.update((prev) => prev + `\n${getDateString()}: ${message}`),
-  initial: () => store.set('取得スタート'),
+  initial: () => store.set(`${getDateString()}: 取得: スタート`),
 };

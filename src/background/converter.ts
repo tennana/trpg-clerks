@@ -50,9 +50,12 @@ async function getIconImgs(res: ResponseMessage): Promise<OUTPUT_FILE[]> {
 type ZipFile = { name: string; data: ArrayBuffer | Uint8Array | string };
 
 function exportJson(res: ResponseMessage): ZipFile {
+  logger.log('JSON生成: 開始');
+  const json = new TextEncoder().encode(JSON.stringify(res.messages));
+  logger.log('JSON生成: 開始');
   return {
     name: 'messages.json',
-    data: new TextEncoder().encode(JSON.stringify(res.messages)),
+    data: json,
   };
 }
 
@@ -154,5 +157,5 @@ export default async function (res: ResponseMessage) {
   aTag.download = file.filename;
   aTag.click();
   URL.revokeObjectURL(aTag.href);
-  logger.log('取得終了');
+  logger.log('取得: 終了');
 }
