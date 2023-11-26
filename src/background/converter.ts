@@ -117,6 +117,9 @@ async function exportMain(res: ResponseMessage): Promise<OUTPUT_FILE> {
 
     let existsNotFound = false;
     res.messages.forEach((message) => {
+      if (!message.iconUrl) {
+        return;
+      }
       const filename = iconFileList.find((iconFileInfo) => iconFileInfo.originalUrl === message.iconUrl)?.filename;
       if (!filename) {
         existsNotFound = true;

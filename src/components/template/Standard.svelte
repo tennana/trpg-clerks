@@ -8,7 +8,9 @@
 
 {#each messages as message}
   <div class="message">
-    <div class="icon"><img src={message.iconUrl} alt="" /></div>
+    {#if message.iconUrl}
+      <div class="icon"><img src={message.iconUrl} alt="" /></div>
+    {/if}
     <div>
       <h4 class="name">{message.name}</h4>
       <span class="body">{message.body}</span>
