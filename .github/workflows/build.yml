@@ -21,7 +21,6 @@ jobs:
         with:
           cache: 'npm'
       - name: Installing packages...🏃‍♂️ 🏃‍♂️ 🏃‍♂️
-        if: steps.node-setup.outputs.cache-hit != 'true'
         run: npm ci
       - name: Running typecheck... 🩺 🔬 🔭
         run: npm run code:typecheck
