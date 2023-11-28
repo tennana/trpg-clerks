@@ -1,6 +1,7 @@
 export interface JsonMessage {
   name: string;
   body: string;
+  htmlBody: string;
   iconUrl: string;
   color?: string;
 }

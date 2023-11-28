@@ -7,18 +7,32 @@ function extractLog(multiListRoot: HTMLElement, logger: (message: string) => voi
         try {
           const messages = Array.from(multiListRoot.getElementsByClassName('MuiListItem-root')).map((node) => {
             const nameLine = node.getElementsByClassName('MuiListItemText-primary')[0] as HTMLElement;
-            const messageBodyTag = node.getElementsByClassName('MuiListItemText-secondary')[0] as HTMLElement;
+            let messageBodyTag =
+              node.getElementsByClassName('MuiListItemText-secondary')[0] as HTMLElement
+            ;
+            if(messageBodyTag.childElementCount) {
+              const origBodyTag = messageBodyTag;
+              messageBodyTag = messageBodyTag.cloneNode(true) as HTMLElement;
+              for (let i = 0; i < messageBodyTag.children.length; i++) {
+                const child = messageBodyTag.children[i];
+                // 色付けを差し替え
+                (child as HTMLElement).style.color = window.getComputedStyle(origBodyTag.children[i]).color;
+                child.className = '';
+                child.removeAttribute('class');
+              }
+            }
+            const body = messageBodyTag.innerText;
+            const htmlBody = messageBodyTag.innerHTML.replace(/class=""/g, '');
             if (!nameLine.firstChild) {
               // System Message
-              const body = messageBodyTag.innerText;
               return {
                 name: 'System',
                 body,
+                htmlBody,
                 iconUrl: '',
               };
             }
             const name = nameLine.firstChild.textContent || '';
-            const body = messageBodyTag.innerText;
             const color = nameLine.style.color;
             const iconTag = node.getElementsByClassName('MuiListItemAvatar-root')[0].getElementsByTagName('img')[0];
             const iconUrl = iconTag && iconTag.src.replace('https://ccfolia.com/blank.gif', '');
@@ -26,8 +40,9 @@ function extractLog(multiListRoot: HTMLElement, logger: (message: string) => voi
             return {
               name,
               body,
+              htmlBody,
               iconUrl,
-              color
+              color,
             } as JsonMessage;
           });
           logger(`発言数合計: ${messages.length}件`);
