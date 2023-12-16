@@ -1,30 +1,53 @@
-# Web Extension Svelte Boilerplate
+# ここぽい(仮)
+## これはなに？
+ココフォリアの発言タブから、アイコン付きで発言を抽出するブラウザ拡張機能です。
+抽出されたログはzip形式でダウンロードでき、外部サーバーには送信しません。
 
-## Development
+## 使い方
+1. [Release](./releases)から、お使いのブラウザに合ったzipファイルをダウンロードします。
+2. zipファイルを解凍します。
+3. この後に記載している「ブラウザにパッケージを読み込む方法」でブラウザに読み込ませます。
+4. ココフォリアのルームに入ります。
+5. 拡張機能として「ここぽい(仮)」が選択できるので、クリックします。
+6. 出てきた小ウィンドウの内容に従ってください。
 
-```bash
-npm i
-```
+### ブラウザにパッケージを読み込む方法
 
-**Chrome**
+**Chrome（クローム）**
 
-```bash
-npm run app:chrome-dev
-```
+1. ブラウザのURLアドレスバーにアクセスします。
+2. `chrome://extensions/` と入力します。
+3. "**開発者モード**"に切り替えます。
+4. "**Load unpacked（パッケージの読み込み）**"をクリックして拡張機能を読み込みます。
+5. 拡張機能のディレクトリに移動します。
+    - 開発者はソースコード内の `dist/` を指定します。
+6. 完了！
 
-**Edge**
+詳細はこちらを確認してください：[https://developer.chrome.com/extensions/getstarted](https://developer.chrome.com/extensions/getstarted)
 
-```bash
-npm run app:edge-dev
-```
+**Edge（エッジ）**
 
-**Firefox**
+1. ブラウザのURLアドレスバーにアクセスします。
+2. `edge://extensions/` と入力します。
+3. `開発者モード`をオンにします。
+4. "**Load unpacked（パッケージの読み込み）**"をクリックして拡張機能を読み込みます。
+5. 拡張機能のディレクトリに移動します。
+    - 開発者はソースコード内の `dist/` を指定します。
+6. 完了！
 
-```bash
-npm run app:firefox-dev
-```
+**Firefox（ファイヤーフォックス）**
 
-## Production
+1. ブラウザのURLアドレスバーにアクセスします。
+2. `about:debugging#/runtime/this-firefox` と入力します。
+3. **Load Temporary Add-on...（一時的なアドオンを読み込む...）** をクリックします。
+4. 拡張機能のディレクトリ内にある、`manifest.json` に移動して **Open（開く）** をクリックします。
+5. 完了！
+
+詳細はこちらを確認してください：[https://extensionworkshop.com/documentation/develop/temporary-installation-in-firefox/](https://extensionworkshop.com/documentation/develop/temporary-installation-in-firefox/)
+
+## Development(開発者向け)
+
+### Build
 
 ```bash
 npm i
@@ -46,59 +69,10 @@ npm run app:edge
 npm run app:firefox
 ```
 
-## Load package to browsers
-
-**Chrome**
-
-1. Go to the browser's URL address bar
-2. Enter `chrome://extensions/`
-3. Switch to "**Developer mode**"
-4. Load extension by clicking "**Load unpacked**"
-5. Browse to `dist/` in source code
-6. Done!
-
-Check here for more detail: [https://developer.chrome.com/extensions/getstarted](https://developer.chrome.com/extensions/getstarted)
-
-**Edge**
-
-1. Go to the browser's URL address bar
-2. Enter `edge://extensions/`
-3. Turn on `Developer mode`
-4. Load extension by clicking "**Load unpacked**"
-5. Browse to `dist/` in source code
-6. Done!
-
-**Firefox**
-
-1. Go to the browser's URL address bar
-2. Enter `about:debugging#/runtime/this-firefox`
-3. Click **Load Temporary Add-on...**
-4. Browse to your `manifest.json` & click **Open**
-5. Done!
-
-Check here for more details: [https://extensionworkshop.com/documentation/develop/temporary-installation-in-firefox/](https://extensionworkshop.com/documentation/develop/temporary-installation-in-firefox/)
-
-## How to keep devtool appears when developing
-
-Simple, just open chrome extension as a page. To do that, follow below steps:
-
-1. Open extension management page
-<img width="333" alt="Screen Shot 2021-05-27 at 14 44 56" src="https://user-images.githubusercontent.com/6290720/119772790-b011f380-befa-11eb-9ab2-f49c1858206b.png">
-
-2. Copy extension id
-
-<img width="712" alt="Screen Shot 2021-05-27 at 14 45 20" src="https://user-images.githubusercontent.com/6290720/119773037-0b43e600-befb-11eb-8887-1696816026d0.png">
-
-3. Open extension as a page `chrome-extension://<extension-id>/popup.html`
-
-- For example: [chrome-extension://npjcjlkchmiidojhockoecphakigbaej/popup.html](chrome-extension://npjcjlkchmiidojhockoecphakigbaej/popup.html)
-
-<img width="792" alt="chrome-extension://npjcjlkchmiidojhockoecphakigbaej/popup.html" src="https://user-images.githubusercontent.com/6290720/120733663-90925080-c522-11eb-8b92-8bc34def4333.png">
-
 ## License
 ### Source Code
 MIT
 
 ### Icon
-https://www.pngrepo.com/svg/186569/dice
-https://gahag.net/009422-game-festival/
+- https://www.pngrepo.com/svg/186569/dice
+- https://gahag.net/009422-game-festival/
