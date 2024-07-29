@@ -95,8 +95,10 @@ async function exportHtml(res: ResponseMessage): Promise<ZipFile> {
         name: 'messages.html',
         data: new TextEncoder().encode(
           `<style>
+    .message { display: flex; border-bottom: 1px solid gray; }
     .icon, .icon > img {
         width: 40px;
+        height: 40px;
     }
     h4 { margin: 0 }
 </style>` + component.$$.root.innerHTML
