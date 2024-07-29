@@ -22,7 +22,9 @@ function extractLog(multiListRoot: HTMLElement, logger: (message: string) => voi
               }
             }
             const body = messageBodyTag.innerText;
-            const htmlBody = messageBodyTag.innerHTML.replace(/class=""/g, '');
+            const htmlBody = messageBodyTag.innerHTML
+              .replace(/class=""/g, '')
+              .replace(/\r?\n/g, '<br>');
             if (!nameLine.firstChild) {
               // System Message
               return {
