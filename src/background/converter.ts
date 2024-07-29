@@ -96,6 +96,7 @@ async function exportHtml(res: ResponseMessage): Promise<ZipFile> {
         data: new TextEncoder().encode(
           `<style>
     .message { display: flex; border-bottom: 1px solid gray; }
+    .message .body { color: initial; }
     .icon, .icon > img {
         width: 40px;
         height: 40px;

@@ -13,8 +13,8 @@
       {:else}
       <div class="icon"></div>
     {/if}
-    <div>
-      <h4 class="name" style={message.color ? `color: ${message.color}` : ''}>{message.name}</h4>
+    <div style={message.color ? `color: ${message.color}` : ''}>
+      <h4 class="name">{message.name}</h4>
       <span class="body">{@html message.htmlBody}</span>
     </div>
   </div>
