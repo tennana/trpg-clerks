@@ -1,6 +1,6 @@
 {
   "name": "trpg-clerks",
-  "version": "0.0.2",
+  "version": "0.0.4",
   "description": "Export log for trpg web tool",
   "scripts": {
     "code:lint": "eslint src",
