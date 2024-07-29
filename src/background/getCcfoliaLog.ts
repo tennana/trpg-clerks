@@ -37,7 +37,10 @@ function extractLog(multiListRoot: HTMLElement, logger: (message: string) => voi
             const name = nameLine.firstChild.textContent || '';
             const color = nameLine.style.color;
             const iconTag = node.getElementsByClassName('MuiListItemAvatar-root')[0].getElementsByTagName('img')[0];
-            const iconUrl = iconTag && iconTag.src.replace('https://ccfolia.com/blank.gif', '');
+            let iconUrl = iconTag && iconTag.src;
+            if (!iconUrl || iconUrl.endsWith('blank.gif')) {
+              iconUrl = '';
+            }
 
             return {
               name,

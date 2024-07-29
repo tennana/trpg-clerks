@@ -10,6 +10,8 @@
   <div class="message">
     {#if message.iconUrl}
       <div class="icon"><img src={message.iconUrl} alt="" /></div>
+      {:else}
+      <div class="icon"></div>
     {/if}
     <div>
       <h4 class="name" style={message.color ? `color: ${message.color}` : ''}>{message.name}</h4>

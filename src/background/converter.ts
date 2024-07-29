@@ -14,7 +14,7 @@ async function getIconImgs(res: ResponseMessage): Promise<OUTPUT_FILE[]> {
   const fileMap: Map<string, Promise<Blob>> = new Map();
   const fetchList: Promise<Blob>[] = [];
   res.messages.forEach((message) => {
-    if (fileMap.has(message.iconUrl) || !message.iconUrl) {
+    if (fileMap.has(message.iconUrl) || !message.iconUrl || message.iconUrl.startsWith('data:')) {
       return;
     }
     const fetchPromise = fetch(message.iconUrl, { cache: 'force-cache' }).then((res) => {
